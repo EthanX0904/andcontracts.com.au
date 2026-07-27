@@ -94,7 +94,9 @@
         .ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
         .ab-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #1c1c1c; padding: 8px 12px; background: #f5f5f2; border-radius: 6px; }
         .ab-item i { color: #1c1c1c; font-size: 12px; }
-        .ab-visual { background: #f3f3f0; border-radius: 14px; min-height: 340px; display: flex; align-items: center; justify-content: center; color: #ddd; font-size: 56px; }
+        .ab-visual { border-radius: 14px; min-height: 340px; background-size: cover; background-position: center; display: flex; align-items: flex-end; position: relative; overflow: hidden; }
+        .ab-visual .ab-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.6), transparent 50%); }
+        .ab-visual .ab-label { position: relative; z-index: 1; padding: 24px; color: #fff; font-size: 11px; letter-spacing: 1px; font-weight: 500; }
 
         /* ===== RIFL ===== */
         .rifl { background: #fff; }
@@ -102,7 +104,9 @@
         .rifl p { color: #888; font-size: 15px; line-height: 1.8; margin-bottom: 14px; }
         .rifl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
         .rifl-tags span { background: #f3f3f0; padding: 6px 14px; border-radius: 4px; font-size: 12px; color: #666; font-weight: 500; }
-        .rifl-visual { background: #f3f3f0; border-radius: 14px; min-height: 300px; display: flex; align-items: center; justify-content: center; font-size: 48px; color: #ddd; }
+        .rifl-visual { border-radius: 14px; min-height: 300px; background-size: cover; background-position: center; display: flex; align-items: flex-end; position: relative; overflow: hidden; }
+        .rifl-visual .ro-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.5), transparent 50%); }
+        .rifl-visual .ro-label { position: relative; z-index: 1; padding: 20px; color: #fff; font-size: 11px; letter-spacing: 1px; font-weight: 500; }
 
         /* ===== WHY ===== */
         .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
@@ -275,8 +279,9 @@
                     <div class="ab-item"><i class="fas fa-check"></i> Sustainability focused</div>
                 </div>
             </div>
-            <div class="ab-visual">
-                <i class="fas fa-warehouse"></i>
+            <div class="ab-visual" style="background-image:url(https://images.pexels.com/photos/4487383/pexels-photo-4487383.jpeg?auto=compress&cs=tinysrgb&w=1200)">
+                <div class="ab-overlay"></div>
+                <div class="ab-label">Warehousing &amp; Distribution · Australia</div>
             </div>
         </div>
     </div>
@@ -338,8 +343,9 @@
                     <span>Intermodal</span>
                 </div>
             </div>
-            <div class="rifl-visual">
-                <i class="fas fa-map-signs"></i>
+            <div class="rifl-visual" style="background-image:url(https://images.pexels.com/photos/31209428/pexels-photo-31209428.jpeg?auto=compress&cs=tinysrgb&w=1200)">
+                <div class="ro-overlay"></div>
+                <div class="ro-label">Freight Rail Network · RiFL Hub, Wagga Wagga</div>
             </div>
         </div>
     </div>

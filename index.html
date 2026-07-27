@@ -17,22 +17,36 @@
 
         .wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
 
-        /* ===== HEADER ===== */
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0; background: #fff; border-bottom: 1px solid #e8e8e6; }
-        header .wrap { display: flex; justify-content: space-between; align-items: center; height: 68px; }
-        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo-mark { width: 32px; height: 32px; background: #1c1c1c; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fafaf8; font-size: 14px; font-weight: 700; letter-spacing: -1px; }
-        .logo-type { font-size: 16px; font-weight: 700; color: #1c1c1c; letter-spacing: .5px; }
-        .logo-type small { font-weight: 400; font-size: 10px; color: #999; letter-spacing: 1px; margin-left: 4px; }
-        nav { display: flex; align-items: center; gap: 4px; }
-        nav a { color: #666; text-decoration: none; padding: 8px 18px; font-size: 13px; font-weight: 500; transition: .2s; border-radius: 6px; }
-        nav a:hover { color: #1c1c1c; background: #f0f0ee; }
-        nav .nav-cta { background: #1c1c1c; color: #fff !important; padding: 10px 24px; border-radius: 6px; font-weight: 600; font-size: 12px; letter-spacing: .5px; }
-        nav .nav-cta:hover { background: #333; color: #fff !important; }
-        .menu-btn { display: none; background: none; border: none; font-size: 22px; cursor: pointer; padding: 8px; color: #1c1c1c; }
+        /* ===== MENU OVERLAY ===== */
+        .menu-toggle { position: fixed; top: 24px; right: 28px; z-index: 200; width: 44px; height: 44px; background: #1c1c1c; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: .3s; }
+        .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after { display: block; width: 18px; height: 2px; background: #fff; border-radius: 2px; transition: .3s; position: relative; }
+        .menu-toggle span::before, .menu-toggle span::after { content: ''; position: absolute; left: 0; }
+        .menu-toggle span::before { top: -6px; }
+        .menu-toggle span::after { top: 6px; }
+        .menu-toggle.open span { background: transparent; }
+        .menu-toggle.open span::before { top: 0; transform: rotate(45deg); background: #fff; }
+        .menu-toggle.open span::after { top: 0; transform: rotate(-45deg); background: #fff; }
+        .menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #1c1c1c; z-index: 150; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .4s; }
+        .menu-overlay.open { opacity: 1; pointer-events: auto; }
+        .menu-overlay nav { text-align: center; }
+        .menu-overlay nav a { display: block; color: rgba(255,255,255,.7); text-decoration: none; font-size: 28px; font-weight: 500; padding: 14px 0; transition: .2s; letter-spacing: -.5px; }
+        .menu-overlay nav a:hover { color: #fff; }
+        .menu-overlay nav .nav-cta-overlay { display: inline-block; margin-top: 20px; padding: 14px 36px; border: 1.5px solid rgba(255,255,255,.2); border-radius: 8px; font-size: 16px; color: #fff; }
+        .menu-overlay nav .nav-cta-overlay:hover { border-color: #fff; }
+        
+        /* ===== SCROLL NAV ===== */
+        .scroll-nav { position: fixed; top: -60px; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,.95); backdrop-filter: blur(12px); border-bottom: 1px solid #eee; transition: top .35s; padding: 0 32px; }
+        .scroll-nav.visible { top: 0; }
+        .scroll-nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 54px; padding: 0; }
+        .scroll-nav .sn-logo { font-size: 14px; font-weight: 700; color: #1c1c1c; letter-spacing: .3px; text-decoration: none; }
+        .scroll-nav .sn-links { display: flex; gap: 2px; }
+        .scroll-nav .sn-links a { color: #888; text-decoration: none; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 4px; transition: .2s; }
+        .scroll-nav .sn-links a:hover { color: #1c1c1c; background: #f0f0ee; }
+        .scroll-nav .sn-cta { background: #1c1c1c; color: #fff !important; padding: 8px 20px !important; border-radius: 6px; font-weight: 600; font-size: 11px !important; letter-spacing: .5px; }
+        .scroll-nav .sn-cta:hover { background: #333 !important; color: #fff !important; }
 
         /* ===== HERO ===== */
-        .hero { padding: 140px 0 80px; background: #fff; }
+        .hero { padding: 80px 0 80px; background: #fff; }
         .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .hero h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 700; line-height: 1.05; letter-spacing: -1.5px; color: #1c1c1c; margin-bottom: 20px; }
         .hero h1 em { font-style: normal; color: #888; }
@@ -152,27 +166,40 @@
 </head>
 <body>
 
-<header>
+<!-- ===== HAMBURGER (top right) ===== -->
+<button class="menu-toggle" id="menuBtn" aria-label="Menu">
+    <span></span>
+</button>
+
+<!-- ===== FULL-SCREEN MENU OVERLAY ===== -->
+<div class="menu-overlay" id="menuOverlay">
+    <nav>
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#services" onclick="closeMenu()">Services</a>
+        <a href="#rifl" onclick="closeMenu()">Rail</a>
+        <a href="#why" onclick="closeMenu()">Why Us</a>
+        <a href="#contact" class="nav-cta-overlay" onclick="closeMenu()">Contact</a>
+    </nav>
+</div>
+
+<!-- ===== SCROLL-NAV (appears on scroll) ===== -->
+<div class="scroll-nav" id="scrollNav">
     <div class="wrap">
-        <a href="/" class="logo">
-            <div class="logo-mark">A</div>
-            <span class="logo-type">AND CONTRACTS <small>PTY LTD</small></span>
-        </a>
-        <button class="menu-btn" onclick="document.querySelector('header nav').classList.toggle('open')">☰</button>
-        <nav>
+        <a href="/" class="sn-logo">AND CONTRACTS</a>
+        <div class="sn-links">
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#rifl">Rail</a>
             <a href="#why">Why Us</a>
-            <a href="#contact" class="nav-cta">Contact</a>
-        </nav>
+            <a href="#contact" class="sn-cta">Contact</a>
+        </div>
     </div>
-</header>
+</div>
 
 <section class="hero">
     <div class="wrap">
         <div>
-            <p style="font-size:12px;font-weight:600;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px">Contract Logistics · Australia</p>
+            <p style="font-size:11px;font-weight:600;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px">AND CONTRACTS PTY LTD</p>
             <h1>Logistics that <em>move</em> your business forward</h1>
             <p>AND CONTRACTS PTY LTD provides warehousing, distribution and transportation across Australia. Specialists in bulk cargo, rail freight and import/export logistics.</p>
             <div class="hero-actions">
@@ -426,10 +453,29 @@
 </footer>
 
 <script>
-document.querySelector('header').addEventListener('click', function(e) {
-    if (e.target.closest('.menu-btn')) {
-        this.querySelector('nav').classList.toggle('open');
+const menuBtn = document.getElementById('menuBtn');
+const menuOverlay = document.getElementById('menuOverlay');
+const scrollNav = document.getElementById('scrollNav');
+
+function closeMenu() {
+    menuBtn.classList.remove('open');
+    menuOverlay.classList.remove('open');
+}
+
+menuBtn.addEventListener('click', function() {
+    this.classList.toggle('open');
+    menuOverlay.classList.toggle('open');
+});
+
+let lastScroll = 0;
+window.addEventListener('scroll', function() {
+    const y = window.scrollY;
+    if (y > 300) {
+        scrollNav.classList.add('visible');
+    } else {
+        scrollNav.classList.remove('visible');
     }
+    lastScroll = y;
 });
 </script>
 </body>

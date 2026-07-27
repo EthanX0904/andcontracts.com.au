@@ -38,7 +38,8 @@
         .scroll-nav { position: fixed; top: -60px; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,.95); backdrop-filter: blur(12px); border-bottom: 1px solid #eee; transition: top .35s; padding: 0 32px; }
         .scroll-nav.visible { top: 0; }
         .scroll-nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 54px; padding: 0; }
-        .scroll-nav .sn-logo { font-size: 14px; font-weight: 700; color: #1c1c1c; letter-spacing: .3px; text-decoration: none; }
+        .scroll-nav .sn-logo { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #1c1c1c; letter-spacing: .3px; text-decoration: none; }
+        .scroll-nav .sn-logo .sn-mark { width: 26px; height: 26px; background: #1c1c1c; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: -1px; flex-shrink: 0; }
         .scroll-nav .sn-links { display: flex; gap: 2px; }
         .scroll-nav .sn-links a { color: #888; text-decoration: none; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 4px; transition: .2s; }
         .scroll-nav .sn-links a:hover { color: #1c1c1c; background: #f0f0ee; }
@@ -185,7 +186,7 @@
 <!-- ===== SCROLL-NAV (appears on scroll) ===== -->
 <div class="scroll-nav" id="scrollNav">
     <div class="wrap">
-        <a href="/" class="sn-logo">AND CONTRACTS</a>
+        <a href="/" class="sn-logo"><span class="sn-mark">A</span>AND CONTRACTS</a>
         <div class="sn-links">
             <a href="#about">About</a>
             <a href="#services">Services</a>
@@ -199,7 +200,13 @@
 <section class="hero">
     <div class="wrap">
         <div>
-            <p style="font-size:11px;font-weight:600;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px">AND CONTRACTS PTY LTD</p>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+                <div style="width:36px;height:36px;background:#1c1c1c;border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;letter-spacing:-1px">AC</div>
+                <div>
+                    <div style="font-size:13px;font-weight:700;color:#1c1c1c;letter-spacing:.3px;line-height:1.2">AND CONTRACTS</div>
+                    <div style="font-size:9px;color:#bbb;letter-spacing:1.5px">PTY LTD</div>
+                </div>
+            </div>
             <h1>Logistics that <em>move</em> your business forward</h1>
             <p>AND CONTRACTS PTY LTD provides warehousing, distribution and transportation across Australia. Specialists in bulk cargo, rail freight and import/export logistics.</p>
             <div class="hero-actions">
